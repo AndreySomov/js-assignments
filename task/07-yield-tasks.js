@@ -34,15 +34,15 @@
  */
 function* get99BottlesOfBeer() {
     for (let i = 99; i > 1; i--) {
-       yield `${i} bottles of beer on the wall, ${i} bottles of beer.`;
-       yield `Take one down and pass it around, ${i - 1 == 1 ? `1 bottle`:`${i - 1} bottles`} of beer on the wall.`;
+        yield `${i} bottles of beer on the wall, ${i} bottles of beer.`;
+        yield `Take one down and pass it around, ${i - 1 == 1 ? `1 bottle` : `${i - 1} bottles`} of beer on the wall.`;
     }
     yield '1 bottle of beer on the wall, 1 bottle of beer.'
     yield 'Take one down and pass it around, no more bottles of beer on the wall.'
     yield 'No more bottles of beer on the wall, no more bottles of beer.'
     yield 'Go to the store and buy some more, 99 bottles of beer on the wall.'
- }
- 
+}
+
 /**
  * Returns the Fibonacci sequence:
  *   0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, ...
@@ -54,9 +54,9 @@ function* get99BottlesOfBeer() {
  */
 function* getFibonacciSequence() {
     let a = 0, b = 1;
-    while(true){
+    while (true) {
         yield a;
-        [a, b] = [b, a+b];
+        [a, b] = [b, a + b];
     }
 }
 
@@ -92,18 +92,18 @@ function* getFibonacciSequence() {
  *
  */
 function* depthTraversalTree(root) {
-    const currRoots = [{children: [root], index: 0}];
- 
-    while(currRoots.length) {
+    const currRoots = [{ children: [root], index: 0 }];
+
+    while (currRoots.length) {
         const currRoot = currRoots[currRoots.length - 1];
-        if(currRoot.index === currRoot.children.length) {
+        if (currRoot.index === currRoot.children.length) {
             currRoots.length--;
         } else {
             const item = currRoot.children[currRoot.index++]
             yield item;
- 
-            if(item.children){
-                currRoots.push({children: item.children, index: 0})
+
+            if (item.children) {
+                currRoots.push({ children: item.children, index: 0 })
             }
         }
     }
@@ -132,7 +132,16 @@ function* depthTraversalTree(root) {
  *
  */
 function* breadthTraversalTree(root) {
-    throw new Error('Not implemented');
+    const currRoots = [[root]];
+    while (currRoots.length) {
+        const depth = currRoots.shift();
+        for (let key of depth) yield key;
+        for (let key of depth) {
+            if (key.children) {
+                currRoots.push(key.children);
+            }
+        }
+    }
 }
 
 
@@ -150,13 +159,21 @@ function* breadthTraversalTree(root) {
  *   [ 1, 3, 5, ... ], [ -1 ] => [ -1, 1, 3, 5, ...]
  */
 function* mergeSortedSequences(source1, source2) {
-    // let arr = source1.concat(source2).sort((a,b)=>a-b);
-    // for(let key of arr){
-    //     yield arr.shift()
-    // }
-    throw new Error('Not implemented');
+    let gen1 = source1();
+    let gen2 = source2();
+    let obj1 = gen1.next();
+    let obj2 = gen2.next();
+    while (true)
+        if (obj1.done && obj2.done) {
+            break;
+        } else if (obj1.done || obj1.value > obj2.value) {
+            yield obj2.value;
+            obj2 = gen2.next();
+        } else if (obj2.done || obj1.value < obj2.value) {
+            yield obj1.value;
+            obj1 = gen1.next();
+        }
 }
-
 
 module.exports = {
     get99BottlesOfBeer: get99BottlesOfBeer,
