@@ -275,7 +275,9 @@ function getSecondItems(arr) {
  */
 
 function propagateItemsByPositionIndex(arr) {
-   return arr.map((item, i) => Array(i + 1).fill(item)).flat()
+   let tmp = [];
+   arr.map((item, i) => Array(i + 1).fill(item)).map(item=>tmp.push(...item));
+   return tmp;
 }
 
 
@@ -541,8 +543,10 @@ function group(array, a, b) {
  *   ['one','two','three'], x=>x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
 function selectMany(arr, childrenSelector) {
-   // return arr.map(childrenSelector).flat();
-   throw new Error('Not implemented');
+   let tmp = [];
+   arr.map(childrenSelector).map(item=>tmp.push(...item));
+   return tmp;
+
 }
 
 
