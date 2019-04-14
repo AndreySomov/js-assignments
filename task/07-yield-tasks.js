@@ -92,7 +92,21 @@ function* getFibonacciSequence() {
  *
  */
 function* depthTraversalTree(root) {
-    throw new Error('Not implemented');
+    const currRoots = [{children: [root], index: 0}];
+ 
+    while(currRoots.length) {
+        const currRoot = currRoots[currRoots.length - 1];
+        if(currRoot.index === currRoot.children.length) {
+            currRoots.length--;
+        } else {
+            const item = currRoot.children[currRoot.index++]
+            yield item;
+ 
+            if(item.children){
+                currRoots.push({children: item.children, index: 0})
+            }
+        }
+    }
 }
 
 
