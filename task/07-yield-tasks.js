@@ -53,7 +53,11 @@ function* get99BottlesOfBeer() {
  *
  */
 function* getFibonacciSequence() {
-    throw new Error('Not implemented');
+    let a = 0, b = 1;
+    while(true){
+        yield a;
+        [a, b] = [b, a+b];
+    }
 }
 
 
@@ -132,6 +136,10 @@ function* breadthTraversalTree(root) {
  *   [ 1, 3, 5, ... ], [ -1 ] => [ -1, 1, 3, 5, ...]
  */
 function* mergeSortedSequences(source1, source2) {
+    // let arr = source1.concat(source2).sort((a,b)=>a-b);
+    // for(let key of arr){
+    //     yield arr.shift()
+    // }
     throw new Error('Not implemented');
 }
 
