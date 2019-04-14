@@ -45,7 +45,7 @@ function findStringInSnakingPuzzle(puzzle, searchStr) {
  *    'abc' => 'abc','acb','bac','bca','cab','cba'
  */
 function* getPermutations(chars) {
-    throw new Error('Not implemented');
+    
 }
 
 
@@ -65,9 +65,18 @@ function* getPermutations(chars) {
  *    [ 1, 6, 5, 10, 8, 7 ] => 18  (buy at 1,6,5 and sell all at 10)
  */
 function getMostProfitFromStockQuotes(quotes) {
-    throw new Error('Not implemented');
-}
-
+    let profit = 0;
+    let myQuotes = [];
+    for(let i = 0; i<quotes.length; i++){
+        if(quotes[i] < Math.max(...quotes.slice(i))){
+            myQuotes.push(quotes[i])
+        } else {
+            myQuotes.forEach(item=> profit+=quotes[i]-item);
+            myQuotes.length = 0;
+        }
+    }
+    return profit;
+ }
 
 /**
  * Class representing the url shorting helper.

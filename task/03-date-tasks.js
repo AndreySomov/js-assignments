@@ -58,7 +58,7 @@ function parseDataFromIso8601(value) {
 function isLeapYear(date) {
    // if(new Date(1900,1,1).)
    date.setMonth(1, 29);
-   if(date.getMonth() == 1) {return true;}
+   if (date.getMonth() == 1) { return true; }
    return false;
 }
 
@@ -79,7 +79,17 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-   throw new Error('Not implemented');
+   let date = endDate - startDate;
+   let ms = date % 1000 < 10
+      ? `00${Math.floor(date % 1000)}` : date % 1000 < 100
+      ? `0${Math.floor(date % 1000)}` : Math.floor(date % 1000);
+   date /= 1000;
+   let sec = date % 60 < 10 ? `0${Math.floor(date % 60)}` : Math.floor(date % 60);
+   date /= 60;
+   let min = date % 60 < 10 ? `0${Math.floor(date % 60)}` : Math.floor(date % 60);
+   date /= 60;
+   let h = date % 12 < 10 ? `0${Math.floor(date % 12)}` : Math.floor(date % 12);
+   return `${h}:${min}:${sec}.${ms}`;
 }
 
 
@@ -99,18 +109,18 @@ function timeSpanToString(startDate, endDate) {
 function angleBetweenClockHands(date) {
    let min = date.getUTCMinutes();
    let hour = date.getUTCHours();
-   let angle = Math.abs(0.5*(60*hour - 11*min));
-   while (angle>180){
+   let angle = Math.abs(0.5 * (60 * hour - 11 * min));
+   while (angle > 180) {
       angle = Math.abs(360 - angle);
    }
-   return Math.PI*angle/180;
+   return Math.PI * angle / 180;
 }
 
 
 module.exports = {
-    parseDataFromRfc2822: parseDataFromRfc2822,
-    parseDataFromIso8601: parseDataFromIso8601,
-    isLeapYear: isLeapYear,
-    timeSpanToString: timeSpanToString,
-    angleBetweenClockHands: angleBetweenClockHands
+   parseDataFromRfc2822: parseDataFromRfc2822,
+   parseDataFromIso8601: parseDataFromIso8601,
+   isLeapYear: isLeapYear,
+   timeSpanToString: timeSpanToString,
+   angleBetweenClockHands: angleBetweenClockHands
 };
