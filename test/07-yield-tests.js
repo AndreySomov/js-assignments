@@ -4,7 +4,7 @@ var assert = require('assert');
 var tasks = require('../task/07-yield-tasks');
 it.optional = require('../extensions/it-optional');
 
-describe.only('07-yield-tasks', function() {
+describe('07-yield-tasks', function() {
 
     it.optional('get99BottlesOfBeer should return the sequence of song lyric lines', () => {
 
