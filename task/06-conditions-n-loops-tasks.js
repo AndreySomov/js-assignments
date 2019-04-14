@@ -99,7 +99,7 @@ function getSumBetweenNumbers(n1, n2) {
  *   10,10,10 =>  true
  */
 function isTriangle(a, b, c) {
-    return (a+b)>c && (a+c)>b && (b+c)>a
+    return (a + b) > c && (a + c) > b && (b + c) > a
 }
 
 
@@ -169,7 +169,7 @@ function doRectanglesOverlap(rect1, rect2) {
 function isInsideCircle(circle, point) {
     let x = Math.abs(circle.center.x - point.x)
     let y = Math.abs(circle.center.y - point.y)
-    return Math.sqrt(x*x + y*y) < circle.radius ? true : false;
+    return Math.sqrt(x * x + y * y) < circle.radius ? true : false;
 }
 
 
@@ -430,9 +430,9 @@ function timespanToHumanString(startDate, endDate) {
  */
 function toNaryString(num, n) {
     let arr = [];
-    while(num){
-        arr.push(num%n);
-        num = Math.floor(num/n)
+    while (num) {
+        arr.push(num % n);
+        num = Math.floor(num / n)
 
     }
 
@@ -475,10 +475,21 @@ function getCommonDirectoryPath(pathes) {
  *                         [ 6 ]]
  *
  */
-function getMatrixProduct(m1, m2) {
-    throw new Error('Not implemented');
+function getMatrixProduct(A, B) {
+    let rowsA = A.length, colsA = A[0].length,
+        rowsB = B.length, colsB = B[0].length,
+        C = [];
+    if (colsA != rowsB) return false;
+    for (let i = 0; i < rowsA; i++) C[i] = [];
+    for (let k = 0; k < colsB; k++) {
+        for (let i = 0; i < rowsA; i++) {
+            let t = 0;
+            for (let j = 0; j < rowsB; j++) t += A[i][j] * B[j][k];
+            C[i][k] = t;
+        }
+    }
+    return C;
 }
-
 
 /**
  * Returns the evaluation of the specified tic-tac-toe position.
@@ -511,21 +522,21 @@ function getMatrixProduct(m1, m2) {
  *
  */
 function evaluateTicTacToePosition(position) {
-    for(let i = 0; i<3; i++){
-        let x = position[i].reduce((accum, item)=>accum + item, "");
-        if(x == "000") return "0" 
-        if(x == "XXX") return "X"
+    for (let i = 0; i < 3; i++) {
+        let x = position[i].reduce((accum, item) => accum + item, "");
+        if (x == "000") return "0"
+        if (x == "XXX") return "X"
     }
-    for(let i = 0; i<3; i++){
+    for (let i = 0; i < 3; i++) {
         let x = position[0][i] + position[1][i] + position[2][i]
-        if(x == "000") return "0" 
-        if(x == "XXX") return "X"
+        if (x == "000") return "0"
+        if (x == "XXX") return "X"
     }
 
-    if(position[0][0] + position[1][1] + position[2][2] == "XXX") return "X";
-    if(position[0][0] + position[1][1] + position[2][2] == "000") return "0";
-    if(position[0][2] + position[1][1] + position[2][0] == "XXX") return "X";
-    if(position[0][2] + position[1][1] + position[2][0] == "000") return "0";
+    if (position[0][0] + position[1][1] + position[2][2] == "XXX") return "X";
+    if (position[0][0] + position[1][1] + position[2][2] == "000") return "0";
+    if (position[0][2] + position[1][1] + position[2][0] == "XXX") return "X";
+    if (position[0][2] + position[1][1] + position[2][0] == "000") return "0";
 }
 
 
